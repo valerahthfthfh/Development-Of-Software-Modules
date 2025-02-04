@@ -3,6 +3,68 @@
 
 using namespace std;
 
+int letterToNumber(char ch) {
+    if (isupper(ch)) {
+        return ch - 'A' + 1; // A=1, B=2, ..., Z=26
+    }
+    else if (islower(ch)) {
+        return ch - 'a' + 1; // a=1, b=2, ..., z=26
+    }
+    return -1; // Return -1 for non-alphabetic characters
+}
+
+char numberToLetter(int num, bool isUpper) {
+    if (num < 1 || num > 26) {
+        return ' '; // Return space for out of range
+    }
+    return isUpper ? char(num - 1 + 'A') : char(num - 1 + 'a');
+}
+
+string caesarCiphertwoo(const string& text, int shift) {
+    string encryptedText = "";
+
+    // Iterate through each character in the text
+    for (char ch : text) {
+        int num = letterToNumber(ch);
+
+        if (num != -1) { // If the character is a letter
+            // Apply the shift
+            num = (num + shift - 1) % 26 + 1;
+
+            // Convert back to letter
+            encryptedText += numberToLetter(num, isupper(ch));
+        }
+        else {
+            // Non-alphabetic characters remain unchanged
+            encryptedText += ch;
+        }
+    }
+
+    return encryptedText;
+}
+
+string getInputAndEncrypt() {
+    string text;
+    int shift;
+
+    // Input text from the user
+    cout << "Enter the text to encrypt: ";
+    cin >> shift;
+
+    // Input shift value from the user
+    cout << "Enter the shift value (1-25): ";
+    cin >> shift;
+
+    // Ensure shift is within the valid range
+    if (shift < 1 || shift > 25) {
+        cout << "Shift value must be between 1 and 25." << endl;
+        exit(1); // Exit if the shift value is invalid
+    }
+
+    // Encrypt the text using Caesar cipher
+    return caesarCiphertwoo(text, shift);
+}
+
 string caesarCipher(const string& text, int shift) {
     string encryptedText = "";
 
@@ -70,7 +132,8 @@ int UserUseMenu() {
 
         }
         else if (userInput == 2) {
-
+            string encryptedText = getInputAndEncrypt();
+            cout << "Encrypted text: " << encryptedText << endl;
         }
         else if (userInput == 3) {
 
