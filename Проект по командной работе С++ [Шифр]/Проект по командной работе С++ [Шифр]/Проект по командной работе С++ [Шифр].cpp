@@ -3,6 +3,66 @@
 
 using namespace std;
 
+string vigenereCipher(const string& text, const string& key, bool encrypt) {
+    string result = "";
+    int keyLength = key.length();
+    int keyIndex = 0;
+
+    for (char ch : text) {
+        if (isalpha(ch)) {
+            char base = isupper(ch) ? 'A' : 'a'; // Determine base for case
+            char keyChar = isupper(key[keyIndex % keyLength]) ? 'A' : 'a'; // Determine base for key character
+
+            // Calculate the shift based on the key character
+            int shift = key[keyIndex % keyLength] - keyChar;
+            if (!encrypt) {
+                shift = -shift; // Reverse shift for decryption
+            }
+
+            // Apply the shift
+            char encryptedChar = (ch - base + shift + 26) % 26 + base;
+            result += encryptedChar;
+
+            keyIndex++; // Move to the next character in the key
+        }
+        else {
+            result += ch; // Non-alphabetic characters remain unchanged
+        }
+    }
+
+    return result;
+}
+
+void getInputAndProcess() {
+    string text, key;
+    char choice;
+
+    // Input text from the user
+    cout << "Enter the text: ";
+    getline(cin, text);
+
+    // Input key from the user
+    cout << "Enter the key: ";
+    getline(cin, key);
+
+    // Input choice for encryption or decryption
+    cout << "Do you want to encrypt (e) or decrypt (d)? ";
+    cin >> choice;
+
+    // Process based on user choice
+    if (choice == 'e' || choice == 'E') {
+        string encryptedText = vigenereCipher(text, key, true);
+        cout << "Encrypted text: " << encryptedText << endl;
+    }
+    else if (choice == 'd' || choice == 'D') {
+        string decryptedText = vigenereCipher(text, key, false);
+        cout << "Decrypted text: " << decryptedText << endl;
+    }
+    else {
+        cout << "Invalid choice. Please enter 'e' for encrypt or 'd' for decrypt." << endl;
+    }
+}
+
 int letterToNumber(char ch) {
     if (isupper(ch)) {
         return ch - 'A' + 1; // A=1, B=2, ..., Z=26
@@ -136,7 +196,7 @@ int UserUseMenu() {
             cout << "Encrypted text: " << encryptedText << endl;
         }
         else if (userInput == 3) {
-
+            getInputAndProcess();
         } 
         else {
             cout << "Thank you for using the application" << endl;
