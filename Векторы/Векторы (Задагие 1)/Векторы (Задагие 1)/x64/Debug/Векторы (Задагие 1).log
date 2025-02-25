@@ -1,0 +1,4 @@
+﻿  Source.cpp
+C:\Users\user\Desktop\Development-Of-Software-Modules\Векторы\Векторы (Задагие 1)\Векторы (Задагие 1)\Source.cpp(29,13): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+C:\Users\user\Desktop\Development-Of-Software-Modules\Векторы\Векторы (Задагие 1)\Векторы (Задагие 1)\Source.cpp(17,9): warning C4101: input: неиспользованная локальная переменная
+  Векторы (Задагие 1).vcxproj -> C:\Users\user\Desktop\Development-Of-Software-Modules\Векторы\Векторы (Задагие 1)\x64\Debug\Векторы (Задагие 1).exe
